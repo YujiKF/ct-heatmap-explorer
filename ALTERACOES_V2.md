@@ -1,5 +1,13 @@
 # Alterações do Explorer v2
 
+## 2.2.0 · Orthanc local
+
+- O serviço Node em `127.0.0.1` lista séries CT do Orthanc via REST e importa manualmente uma série escolhida. Valida dimensões, orientação e espaçamento, recusa séries oblíquas ou irregulares, reorienta para RAS e grava volume e manifesto fora do repositório.
+- A aplicação abre com catálogo vazio e oferece o botão **Atualizar do Orthanc**. A TC importada exibe cortes 2D/3D sem criar score nem heatmap. O nome da interface e do repositório passou a **CT Heatmap Explorer**; os identificadores do contrato continuam legados por compatibilidade.
+- A importação deixa de depender do manifesto de um caso de demonstração. No repositório, exames e resultados permanecem ausentes; seis testes dependentes dessas fixtures são marcados como *skip*.
+- Verificação da cópia sem dados: `npm test` (5 testes sintéticos e 3 testes Orthanc aprovados; 6 de integração com exames em *skip*), `npm run build` e `npm run test:orthanc` (1 teste de importação ponta a ponta aprovado). A interface sem exames foi conferida no navegador.
+
+
 ## Ajuste visual 2.1.1
 
 - O fundo do painel 3D passou de azul acinzentado para grafite (#102334),

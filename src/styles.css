@@ -43,3 +43,14 @@ select:focus-visible{outline:3px solid #8ce6d2;outline-offset:2px}
 .field-hint,.geometry-notice,.slice-title h3 span,.direction,.position-bar,.case-stats{color:#b5c5d7}
 @media(max-width:1220px){.slices{grid-template-columns:repeat(2,minmax(0,1fr))}.slice-stage{height:clamp(275px,34vw,360px)}}
 @media(max-width:700px){.slices{grid-template-columns:1fr}.slice-stage{height:clamp(270px,70vw,420px)}.volume-disclosure{align-items:flex-start}.case-picker select{min-width:0}}
+/* Local Orthanc import controls */
+.orthanc-button{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #4d796c;border-radius:7px;background:#17332d;color:#d7f3e8;white-space:nowrap;cursor:pointer}
+.orthanc-button:disabled{opacity:.5;cursor:wait}
+.orthanc-panel{margin:12px 28px;padding:16px 18px;background:#17222e;border:1px solid #4d796c;border-radius:9px;color:#e1e9f0}
+.orthanc-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.orthanc-panel-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.orthanc-panel-actions select{min-width:280px;max-width:min(70vw,700px);padding:8px;background:#101a24;border:1px solid #667b8c;border-radius:5px;color:#fff}
+.orthanc-panel .primary-button{padding:8px 12px}
+.orthanc-error{color:#ffb8ac}
+.orthanc-help{font-size:.77rem;color:#b8c6d4;margin-top:9px}
+@media(max-width:800px){.casebar{flex-wrap:wrap}.case-picker{flex-wrap:wrap}.orthanc-panel{margin:10px}.orthanc-panel-actions select{max-width:100%;min-width:0;width:100%}}

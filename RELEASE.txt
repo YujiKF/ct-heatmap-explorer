@@ -1,3 +1,4 @@
-CT Heatmap Explorer 2.1.1
+CT Heatmap Explorer 2.2.0
+Integração local com Orthanc e execução sem exames de demonstração.
 Distribuição de código-fonte, testes e documentação: 2026-09-29.
 Exames, heatmaps, scores, capturas e build com dados não são distribuídos.

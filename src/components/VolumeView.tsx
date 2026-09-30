@@ -47,6 +47,6 @@ export default function VolumeView({data,heat,settings,clip,name,loading}:Props)
       <button aria-label="Tela cheia" title="Tela cheia" onClick={()=>{if(document.fullscreenElement)void document.exitFullscreen();else void panel.current?.requestFullscreen().catch(()=>setError('Tela cheia indisponível neste navegador.'))}}><Maximize2 size={18}/></button>
     </div>
     <div className="volume-bottom"><span><Move size={14}/> Arraste para girar <b>·</b> Scroll para zoom <b>·</b> Shift + arraste para pan</span><span className="mono">{data.manifest.grid?.dimensions.join(' × ')} voxels</span></div>
-    <div className="color-key"><span>Atribuição relativa</span><div className="color-bar"/><div className="key-labels"><span>0</span><span>0.5</span><span>1</span></div></div>
+    {data.manifest.dataset!=='Orthanc local'&&<div className="color-key"><span>Atribuição relativa</span><div className="color-bar"/><div className="key-labels"><span>0</span><span>0.5</span><span>1</span></div></div>}
   </section>
 }

@@ -9,6 +9,7 @@ __pycache__/
 
 # Exames e resultados ficam somente no ambiente local.
 public/data/
+local-data/
 docs/comparacao/
 docs/validation-integrity.json
 *.dcm

@@ -3,7 +3,7 @@ import {validateManifest} from './validate';
 import {sha256} from '@noble/hashes/sha2.js';
 export async function loadCatalog(): Promise<Catalog> {
   const r=await fetch('/data/catalog.json');if(!r.ok)throw new Error('Catálogo indisponível.');
-  const c=await r.json();if(c.schema_version!=='pacs-inrad-catalog/1.0'||!c.cases?.length)throw new Error('Catálogo inválido.');return c;
+  const c=await r.json();if(c.schema_version!=='pacs-inrad-catalog/1.0'||!Array.isArray(c.cases))throw new Error('Catálogo inválido.');return c;
 }
 export async function loadAsset(a: Asset, manifestUrl: string, signal: AbortSignal): Promise<Scalars> {
   const url=new URL(a.url,manifestUrl);
