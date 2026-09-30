@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.sites-runtime/
+__pycache__/
+.venv/
+.test-deps/
+.env*
+*.tsbuildinfo
+
+# Exames e resultados ficam somente no ambiente local.
+public/data/
+docs/comparacao/
+docs/validation-integrity.json
+*.dcm
+*.nii
+*.nii.gz
+*.bin
+*.pt
+*.pth
+*.zip

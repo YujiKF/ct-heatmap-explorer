@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PACS InRad viewer manifest 1.0",
+  "description": "Structural schema. validate.ts additionally enforces affine/spacing, identities, sizes, decisions and supported memory limit.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "title",
+    "grid",
+    "ct",
+    "body_mask",
+    "classes",
+    "provenance",
+    "notices"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "pacs-inrad-viewer/1.0"
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string"
+    },
+    "grid": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/grid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ct": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/asset"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "body_mask": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/asset"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "notices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "required": [
+        "url",
+        "dtype",
+        "encoding",
+        "order",
+        "byte_length",
+        "sha256",
+        "scale",
+        "offset"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dtype": {
+          "enum": [
+            "int16",
+            "uint8",
+            "float32"
+          ]
+        },
+        "encoding": {
+          "enum": [
+            "gzip",
+            "raw"
+          ]
+        },
+        "order": {
+          "const": "x-fastest"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "compressed_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "offset": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        }
+      }
+    },
+    "grid": {
+      "type": "object",
+      "required": [
+        "dimensions",
+        "space",
+        "spacing",
+        "origin",
+        "affine",
+        "orientation",
+        "geometry_verified"
+      ],
+      "properties": {
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 1024
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "space": {
+          "enum": [
+            "index",
+            "RAS"
+          ]
+        },
+        "spacing": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "origin": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "affine": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "orientation": {
+          "anyOf": [
+            {
+              "const": [
+                "R",
+                "A",
+                "S"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "geometry_verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "heatmap": {
+      "type": "object",
+      "required": [
+        "version",
+        "method",
+        "normalization",
+        "data",
+        "display_range"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string"
+        },
+        "normalization": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/$defs/asset"
+        },
+        "display_range": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": 0
+            },
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "name_pt",
+        "score",
+        "logit",
+        "threshold",
+        "comparator",
+        "decision",
+        "threshold_status",
+        "heatmaps"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name_pt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name_en": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "threshold": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comparator": {
+          "enum": [
+            ">=",
+            ">"
+          ]
+        },
+        "decision": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "threshold_status": {
+          "type": "string"
+        },
+        "interpretation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "heatmaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/heatmap"
+          }
+        }
+      }
+    }
+  }
+}

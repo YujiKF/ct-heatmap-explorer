@@ -1,0 +1,3 @@
+CT Heatmap Explorer 2.1.1
+Distribuição de código-fonte, testes e documentação: 2026-09-29.
+Exames, heatmaps, scores, capturas e build com dados não são distribuídos.
